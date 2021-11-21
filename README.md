@@ -1,5 +1,5 @@
-# game-of-life
-Rust + Web Assembly + WebGL Conway's Game of Life
+# eclipse-clock
+Rust + Web Assembly + Shader Clock
 
 ## Dependencies
 [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)

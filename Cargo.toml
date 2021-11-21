@@ -1,0 +1,34 @@
+[package]
+name = "game_of_life"
+version = "1.0.0"
+edition = "2018"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+console_error_panic_hook = "0.1.6"
+js-sys = "0.3.52"
+wasm-bindgen = "0.2.75"
+
+[dependencies.web-sys]
+version = "0.3.4"
+features = [
+  'console',
+  'Document',
+  'Element',
+  'HtmlBodyElement',
+  'HtmlCanvasElement',
+  'Performance',
+  'PerformanceTiming',
+  'WebGl2RenderingContext',
+  'WebGlBuffer',
+  'WebGlFramebuffer',
+  'WebGlProgram',
+  'WebGlShader',
+  'WebGlTexture',
+  'WebGlUniformLocation',
+  'WebGlVertexArrayObject',
+  'Window',
+]

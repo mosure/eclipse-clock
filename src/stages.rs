@@ -137,6 +137,8 @@ impl RenderStage {
             Rc::clone(&program),
         );
 
+        let hour_offset = (Date::new_0().get_utc_hours() as i32 - Date::new_0().get_hours() as i32).abs() % 12;
+
         let mut stage = RenderStage {
             gl: gl,
             ctx: ctx,
@@ -146,7 +148,7 @@ impl RenderStage {
             minute: 0.0,
             second: 0.0,
             millisecond: 0,
-            time_offset: Date::now(),
+            time_offset: Date::now() + (hour_offset * 60 * 60 * 1000) as f64,
         };
         stage.init();
 
@@ -169,10 +171,9 @@ impl Stage for RenderStage {
 
         self.millisecond = since_the_boot.as_millis() as u32 % 1000;
 
-        let central_offset = 6;
         let dt = DateTime::<Utc>::from_utc(NaiveDateTime::from_timestamp(((self.time_offset / 1000.0) as u64 + since_the_boot.as_secs()) as i64, 0), Utc);
 
-        self.hour = dt.hour() as f32 + central_offset as f32 + dt.minute() as f32 / 60.0 + dt.second() as f32 / 60.0 / 60.0 + self.millisecond as f32 / 60.0 / 60.0 / 1000.0;
+        self.hour = (dt.hour() % 12) as f32 + dt.minute() as f32 / 60.0 + dt.second() as f32 / 60.0 / 60.0 + self.millisecond as f32 / 60.0 / 60.0 / 1000.0;
         self.minute = dt.minute() as f32 + dt.second() as f32 / 60.0 + self.millisecond as f32 / 60.0 / 1000.0;
         self.second = dt.second() as f32 + self.millisecond as f32 / 1000.0;
 

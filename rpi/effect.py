@@ -69,14 +69,17 @@ def dev_effect():
         run_time = time.time() - boot_time
         st = x / resolution
 
-        ct = (st + run_time) % 1.0
+        ct = run_time % 1.0
+        it = (st + (run_time * (14 / 13))) % 1.0
 
-        r,g,b = colorsys.hsv_to_rgb(ct, 0.4, 0.5)
+        r,g,b = colorsys.hsv_to_rgb(it, 0.4, 0.5)
+
+        intensity = region(ct, st, 1 / 12)
 
         return tuple([
-            r * 255,
-            g * 255,
-            b * 255,
+            r * intensity * 255,
+            g * intensity * 255,
+            b * intensity * 255,
         ])
 
     return _dev_effect

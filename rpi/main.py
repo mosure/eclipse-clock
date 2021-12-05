@@ -21,7 +21,7 @@ pixels = adafruit_dotstar.DotStar(
 
 
 def write(index: int, color: Color):
-    pixels[index] = tuple(map(lambda c: GAMMA[c], color))
+    pixels[index] = tuple(map(lambda c: GAMMA[int(c)], color))
 
 def do_frame(frag_shader: FragmentShader):
     now = datetime.datetime.now()

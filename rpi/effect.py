@@ -3,6 +3,8 @@ import math
 import time
 from typing import Protocol
 
+from noise import pnoise1
+
 from util import convert_K_to_RGB, get_hour, get_minute, get_second, region
 
 
@@ -57,9 +59,9 @@ def second_intensity(st: float, now: datetime):
     return 1.0 - region(pos, st, SIZE) * INTENSITY
 
 
-def eclipse_clock(origin = 0.0, dimming = 1.0, static_color = convert_K_to_RGB(3200)):
+def eclipse_clock(origin = 11/24, dimming = 0.6, static_color = convert_K_to_RGB(3200)):
     def _eclipse_clock(x: int, resolution: int, now: datetime) -> Color:
-        st = (x / resolution + origin) % 1.0
+        st = ((-x + resolution) / resolution + origin) % 1.0
 
         intensity = hour_intensity(st, now) * minute_intensity(st, now) * second_intensity(st, now) * dimming
 
@@ -77,7 +79,7 @@ def dev_effect():
         st = (x / resolution + run_time) % 1.0
 
         return tuple([
-            math.sin(st * math.pi * 4) * 255,
+            pnoise1(st, 1) * 255,
             0,
             0
         ])

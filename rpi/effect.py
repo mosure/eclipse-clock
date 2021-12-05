@@ -72,7 +72,7 @@ def dev_effect():
     boot_time = time.time()
 
     def _dev_effect(x: int, resolution: int, now: datetime) -> Color:
-        run_time = time.time() - boot_time()
+        run_time = time.time() - boot_time
 
         st = (x / resolution + run_time) % 1.0
 

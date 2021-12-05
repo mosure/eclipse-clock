@@ -6,7 +6,7 @@ import time
 import adafruit_dotstar
 import board
 
-from effect import Color, dev_effect, eclipse_factory, FragmentShader
+from effect import Color, dev_effect, eclipse_clock, FragmentShader
 
 
 GAMMA = bytearray(256)
@@ -57,7 +57,7 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 print('Press Ctrl+C to exit...')
 
-fragment_shader = eclipse_factory(dimming=0.7)
+fragment_shader = eclipse_clock(dimming=0.7)
 fragment_shader = dev_effect()
 
 

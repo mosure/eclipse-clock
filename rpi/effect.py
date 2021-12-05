@@ -75,8 +75,8 @@ def dev_effect():
 
         return tuple([
             r * 255,
-            g,
-            b,
+            g * 255,
+            b * 255,
         ])
 
     return _dev_effect

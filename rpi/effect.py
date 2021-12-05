@@ -1,3 +1,4 @@
+import colorsys
 import datetime
 import math
 import time
@@ -6,15 +7,6 @@ from typing import Protocol
 from noise import pnoise1
 
 from util import convert_K_to_RGB, get_hour, get_minute, get_second, region
-
-
-"""
-import colorsys
->>> colorsys.rgb_to_hsv(0.2, 0.4, 0.4)
-(0.5, 0.5, 0.4)
->>> colorsys.hsv_to_rgb(0.5, 0.5, 0.4)
-(0.2, 0.4, 0.4)
-"""
 
 
 Color = tuple[float, float, float]
@@ -77,10 +69,14 @@ def dev_effect():
         run_time = time.time() - boot_time
         st = x / resolution
 
+        ct = (st + run_time) % 1.0
+
+        r,g,b = colorsys.hsv_to_rgb(ct, 0.4, 0.5)
+
         return tuple([
-            pnoise1(st + run_time, 4) * 255,
-            0,
-            0
+            r * 255,
+            g,
+            b,
         ])
 
     return _dev_effect

@@ -70,9 +70,9 @@ def dev_effect():
         st = x / resolution
 
         ct = run_time % 1.0
-        it = (st + (run_time * (14 / 13))) % 1.0
+        it = (run_time * 14 / 13) % 1.0
 
-        r,g,b = colorsys.hsv_to_rgb(it, 0.4, 0.5)
+        r,g,b = colorsys.hsv_to_rgb(it, 0.6, 0.5)
 
         intensity = region(ct, st, 1 / 12)
 

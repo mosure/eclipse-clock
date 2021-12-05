@@ -1,4 +1,5 @@
 import datetime
+import time
 
 import adafruit_dotstar
 import board
@@ -38,6 +39,16 @@ def do_frame(frag_shader: FragmentShader):
     pixels.show()
 
 
+counter = 0
+last_measure = time.time()
+report_interval_frames = 10000
+
 while True:
     do_frame(eclipse_clock)
-    break
+
+    if counter % report_interval_frames == 0:
+        new_measure = time.time()
+        delta = new_measure - last_measure
+        last_measure = new_measure
+
+        print(f'FPS: {report_interval_frames / delta}')

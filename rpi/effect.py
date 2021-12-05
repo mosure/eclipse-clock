@@ -77,7 +77,7 @@ def dev_effect():
         st = (x / resolution + run_time) % 1.0
 
         return tuple([
-            math.sin(st * math.pi) * 255,
+            math.sin(st * math.pi * 2) * 255,
             0,
             0
         ])

@@ -39,7 +39,7 @@ def do_frame(frag_shader: FragmentShader):
     pixels.show()
 
 
-counter = 0
+counter = 1
 last_measure = time.time()
 report_interval_frames = 10000
 

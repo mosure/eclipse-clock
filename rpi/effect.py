@@ -75,11 +75,10 @@ def dev_effect():
 
     def _dev_effect(x: int, resolution: int, now: datetime) -> Color:
         run_time = time.time() - boot_time
-
-        st = (x / resolution + run_time) % 1.0
+        st = x / resolution
 
         return tuple([
-            pnoise1(st, 1) * 255,
+            pnoise1(st + run_time, 4) * 255,
             0,
             0
         ])

@@ -1,4 +1,6 @@
 import datetime
+import signal
+import sys
 import time
 
 import adafruit_dotstar
@@ -22,7 +24,8 @@ pixels = adafruit_dotstar.DotStar(
 
 
 def write(index: int, color: Color):
-    pixels[index] = tuple(map(lambda c: GAMMA[int(c)], color))
+    pixels[index] = color
+    #pixels[index] = tuple(map(lambda c: GAMMA[int(c)], color))
 
 def do_frame(frag_shader: FragmentShader):
     now = datetime.datetime.now()
@@ -43,6 +46,19 @@ counter = 1
 last_measure = time.time()
 report_interval_frames = 1000
 
+
+def signal_handler(sig, frame):
+    for i in range(num_pixels):
+        write(i, (0, 0, 0))
+
+    pixels.show()
+
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+print('Press Ctrl+C to exit...')
+
+
 while True:
     do_frame(eclipse_clock)
 
@@ -54,3 +70,5 @@ while True:
         print(f'FPS: {report_interval_frames / delta}')
 
     counter += 1
+
+

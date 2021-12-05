@@ -41,7 +41,7 @@ def do_frame(frag_shader: FragmentShader):
 
 counter = 1
 last_measure = time.time()
-report_interval_frames = 10000
+report_interval_frames = 1000
 
 while True:
     do_frame(eclipse_clock)

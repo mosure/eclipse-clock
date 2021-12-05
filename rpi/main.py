@@ -52,3 +52,5 @@ while True:
         last_measure = new_measure
 
         print(f'FPS: {report_interval_frames / delta}')
+
+    counter += 1

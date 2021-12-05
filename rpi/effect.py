@@ -1,4 +1,6 @@
 import datetime
+import math
+import time
 from typing import Protocol
 
 from util import convert_K_to_RGB, get_hour, get_minute, get_second, region
@@ -55,14 +57,25 @@ def second_intensity(st: float, now: datetime):
     return 1.0 - region(pos, st, SIZE) * INTENSITY
 
 
-STATIC_COLOR = convert_K_to_RGB(3200)
+def eclipse_clock(origin = 0.0, dimming = 1.0, static_color = convert_K_to_RGB(3200)):
+    def _eclipse_clock(x: int, resolution: int, now: datetime) -> Color:
+        st = (x / resolution + origin) % 1.0
+
+        intensity = hour_intensity(st, now) * minute_intensity(st, now) * second_intensity(st, now) * dimming
+
+        return tuple([channel * intensity for channel in static_color])
+
+    return _eclipse_clock
 
 
-def eclipse_clock(x: int, resolution: int, now: datetime) -> Color:
-    ORIGIN = 0
+def dev_effect():
+    boot_time = time.time()
 
-    st = (x / resolution + ORIGIN) % 1.0
+    def _dev_effect(x: int, resolution: int, now: datetime) -> Color:
+        run_time = time.time() - boot_time()
 
-    intensity = hour_intensity(st, now) * minute_intensity(st, now) * second_intensity(st, now)
+        st = (x / resolution + run_time) % 1.0
 
-    return tuple([channel * intensity for channel in STATIC_COLOR])
+        return math.sin(st * math.pi)
+
+    return _dev_effect

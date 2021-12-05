@@ -7,6 +7,7 @@ import adafruit_dotstar
 import board
 
 from effect import Color, dev_effect, eclipse_clock, FragmentShader
+from util import clamp
 
 
 GAMMA = bytearray(256)
@@ -24,7 +25,7 @@ pixels = adafruit_dotstar.DotStar(
 
 
 def write(index: int, color: Color):
-    pixels[index] = tuple(map(lambda c: GAMMA[int(c)], color))
+    pixels[index] = tuple(map(lambda c: GAMMA[int(clamp(c, 0, 255))], color))
 
 def do_frame(frag_shader: FragmentShader):
     now = datetime.datetime.now()

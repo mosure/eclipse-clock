@@ -13,3 +13,5 @@ node_modules/
 
 pkg/
 dist/
+
+__pycache__/

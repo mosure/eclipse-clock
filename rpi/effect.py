@@ -72,9 +72,9 @@ def color_noise(segment = False):
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
 
-        r = snoise3(s, t, run_time / 3, octaves=4)
-        g = snoise3(s, t, run_time / 3, octaves=3)
-        b = snoise3(s, t, run_time / 3, octaves=5)
+        r = snoise3(s, t, run_time / 4, octaves=4)
+        g = snoise3(s + 10, t + 10, run_time / 4, octaves=4)
+        b = snoise3(s + 50, t + 50, run_time / 4, octaves=4)
 
         #ct = (run_time / 4) % 1.0
 

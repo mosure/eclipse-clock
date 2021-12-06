@@ -76,8 +76,9 @@ def dev_effect():
 
         ct = (run_time / 4) % 1.0
 
+        intensity = math.sin(st * 12 * math.pi + run_time / 4)
         #intensity = region(ct, st, 1 / 12)
-        intensity = 0.6
+        #intensity = 0.6
 
         r,g,b = colorsys.hsv_to_rgb(ct, 0.4, noise * intensity)
 

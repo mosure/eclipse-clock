@@ -84,7 +84,7 @@ def color_noise(segment = True):
         else:
             intensity = 0.4
 
-        r,g,b = colorsys.hsv_to_rgb(hue, 0.5, intensity)
+        r,g,b = colorsys.hsv_to_rgb(hue, 0.4, intensity)
 
         return tuple([
             r * 255,

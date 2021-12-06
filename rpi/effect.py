@@ -82,9 +82,9 @@ def dev_effect():
         r,g,b = colorsys.hsv_to_rgb(ct, 0.4, noise * intensity)
 
         return tuple([
-            r * intensity * 255,
-            g * intensity * 255,
-            b * intensity * 255,
+            r * 255,
+            g * 255,
+            b * 255,
         ])
 
     return _dev_effect

@@ -4,7 +4,7 @@ import math
 import time
 from typing import Protocol
 
-from noise import pnoise1, snoise3
+from noise import pnoise1, pnoise3
 
 from util import convert_K_to_RGB, get_hour, get_minute, get_second, region
 
@@ -72,11 +72,11 @@ def dev_effect():
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
 
-        noise = (snoise3(s, t, run_time) + 1) / 2
+        noise = (pnoise3(s, t, run_time, octaves=5) + 1) / 2
 
         #ct = (run_time * 3) % 1.0
 
-        r,g,b = colorsys.hsv_to_rgb(noise, 0.6, 0.5)
+        r,g,b = colorsys.hsv_to_rgb(noise, 0.4, 0.5)
 
         #intensity = region(ct, st, 1 / 12)
         intensity = 1

@@ -62,10 +62,10 @@ def eclipse_clock(origin = 11/24, dimming = 0.6, static_color = convert_K_to_RGB
     return _eclipse_clock
 
 
-def dev_effect():
+def color_noise(segment = False):
     boot_time = time.time()
 
-    def _dev_effect(x: int, resolution: int, now: datetime) -> Color:
+    def _color_noise(x: int, resolution: int, now: datetime) -> Color:
         run_time = time.time() - boot_time
         st = x / resolution
 
@@ -76,9 +76,10 @@ def dev_effect():
 
         #ct = (run_time / 4) % 1.0
 
-        intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
-        #intensity = region(ct, st, 1 / 12)
-        #intensity = 0.6
+        if segment:
+            intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
+        else:
+            intensity = 1.0
 
         r,g,b = colorsys.hsv_to_rgb(noise, 0.5, intensity)
 
@@ -88,4 +89,4 @@ def dev_effect():
             b * 255,
         ])
 
-    return _dev_effect
+    return _color_noise

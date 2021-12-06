@@ -59,7 +59,7 @@ signal.signal(signal.SIGINT, signal_handler)
 print('Press Ctrl+C to exit...')
 
 fragment_shader = eclipse_clock(dimming=0.7)
-fragment_shader = eclipse_clock(dimming=0.4, night_mode=True, static_color=[255, 0, 0])
+fragment_shader = eclipse_clock(dimming=0.2, night_mode=True, static_color=[255, 0, 0])
 #fragment_shader = color_noise()
 
 

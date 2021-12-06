@@ -72,7 +72,7 @@ def dev_effect():
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
 
-        noise = (pnoise3(s, t, run_time, octaves=5) + 1) / 2
+        noise = (pnoise3(s, t, run_time, octaves=1) + 0.7) / 1.4
 
         #ct = (run_time * 3) % 1.0
 

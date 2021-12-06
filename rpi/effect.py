@@ -4,7 +4,7 @@ import math
 import time
 from typing import Protocol
 
-from noise import pnoise1, snoise3
+from noise import pnoise1, pnoise3, snoise3
 
 from util import clamp, convert_K_to_RGB, get_hour, get_minute, get_second, region
 
@@ -72,14 +72,14 @@ def color_noise(segment = True):
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
 
-        noise = ((snoise3(s, t, run_time / 3, octaves=12) + 1) / 2 + run_time / 10) % 1
+        noise = ((snoise3(s, t, run_time / 3, octaves=8) + 1) / 2 + run_time / 10) % 1
 
         #ct = (run_time / 4) % 1.0
 
         if segment:
             #intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
             #intensity = abs(math.sin(run_time * 4 * math.pi)) * 0.5
-            intensity = clamp(snoise3(s + 50, t, run_time / 12, octaves=4), 0, 0.6)
+            intensity = clamp(pnoise3(s, t, run_time / 12, octaves=1), 0, 0.6)
         else:
             intensity = 0.4
 

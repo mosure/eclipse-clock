@@ -76,7 +76,7 @@ def dev_effect():
 
         ct = (run_time / 4) % 1.0
 
-        intensity = math.sin(st * 12 * math.pi + run_time / 4)
+        intensity = math.sin(st * 12 * math.pi + run_time * 4)
         #intensity = region(ct, st, 1 / 12)
         #intensity = 0.6
 

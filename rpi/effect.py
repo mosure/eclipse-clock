@@ -72,14 +72,14 @@ def dev_effect():
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
 
-        noise = (pnoise3(s, t, run_time, octaves=1) + 0.7) / 1.4
+        noise = (pnoise3(s, t, run_time, octaves=1) + 1) / 1
 
-        #ct = (run_time * 3) % 1.0
-
-        r,g,b = colorsys.hsv_to_rgb(noise, 0.4, 0.5)
+        ct = (run_time / 4) % 1.0
 
         #intensity = region(ct, st, 1 / 12)
-        intensity = 1
+        intensity = 0.6
+
+        r,g,b = colorsys.hsv_to_rgb(ct, 0.4, noise * intensity)
 
         return tuple([
             r * intensity * 255,

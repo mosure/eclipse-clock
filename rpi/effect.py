@@ -4,7 +4,7 @@ import math
 import time
 from typing import Protocol
 
-from noise import pnoise1, snoise2
+from noise import pnoise1, snoise3
 
 from util import convert_K_to_RGB, get_hour, get_minute, get_second, region
 
@@ -72,7 +72,7 @@ def dev_effect():
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
 
-        noise = (snoise2(s + run_time, t) + 1) / 2
+        noise = (snoise3(s, t, run_time) + 1) / 2
 
         #ct = (run_time * 3) % 1.0
 

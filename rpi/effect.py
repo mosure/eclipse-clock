@@ -51,11 +51,14 @@ def second_intensity(st: float, now: datetime):
     return 1.0 - region(pos, st, SIZE) * INTENSITY
 
 
-def eclipse_clock(origin = 11/24, dimming = 0.6, static_color = convert_K_to_RGB(3200)):
+def eclipse_clock(origin = 11/24, dimming = 0.6, static_color = convert_K_to_RGB(3200), night_mode=False):
     def _eclipse_clock(x: int, resolution: int, now: datetime) -> Color:
         st = ((-x + resolution) / resolution + origin) % 1.0
 
-        intensity = hour_intensity(st, now) * minute_intensity(st, now) * second_intensity(st, now) * dimming
+        if night_mode:
+            intensity = (1 - hour_intensity(st, now)) * dimming
+        else:
+            intensity = hour_intensity(st, now) * minute_intensity(st, now) * second_intensity(st, now) * dimming
 
         return tuple([channel * intensity for channel in static_color])
 

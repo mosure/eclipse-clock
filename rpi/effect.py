@@ -72,14 +72,14 @@ def color_noise(segment = False):
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
 
-        noise = (pnoise3(s, t, run_time / 10, octaves=1) + 1) / 1
+        noise = abs(pnoise3(s, t, run_time / 3, octaves=4))
 
         #ct = (run_time / 4) % 1.0
 
         if segment:
             intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
         else:
-            intensity = 1.0
+            intensity = 0.4
 
         r,g,b = colorsys.hsv_to_rgb(noise, 0.5, intensity)
 

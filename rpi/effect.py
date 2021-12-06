@@ -72,7 +72,9 @@ def color_noise(segment = False):
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
 
-        noise = (snoise3(s, t, run_time / 3, octaves=4) + 1) / 2
+        r = snoise3(s, t, run_time / 3, octaves=4)
+        g = snoise3(s, t, run_time / 3, octaves=3)
+        b = snoise3(s, t, run_time / 3, octaves=5)
 
         #ct = (run_time / 4) % 1.0
 
@@ -81,12 +83,12 @@ def color_noise(segment = False):
         else:
             intensity = 0.4
 
-        r,g,b = colorsys.hsv_to_rgb(noise, 0.5, intensity)
+        #r,g,b = colorsys.hsv_to_rgb(noise, 0.5, intensity)
 
         return tuple([
-            r * 255,
-            g * 255,
-            b * 255,
+            r * intensity * 255,
+            g * intensity * 255,
+            b * intensity * 255,
         ])
 
     return _color_noise

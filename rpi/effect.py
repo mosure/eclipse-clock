@@ -4,7 +4,7 @@ import math
 import time
 from typing import Protocol
 
-from noise import pnoise1, snoise3
+from noise import pnoise1, pnoise3
 
 from util import convert_K_to_RGB, get_hour, get_minute, get_second, region
 
@@ -72,16 +72,16 @@ def color_noise(segment = False):
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
 
-        r = snoise3(s, t, run_time / 4, octaves=4)
-        g = snoise3(s + 10, t + 10, run_time / 4, octaves=4)
-        b = snoise3(s + 50, t + 50, run_time / 4, octaves=4)
+        r = pnoise3(s, t, run_time / 4, octaves=4)
+        g = pnoise3(s + 10, t + 10, run_time / 4, octaves=4)
+        b = pnoise3(s + 50, t + 50, run_time / 4, octaves=4)
 
         #ct = (run_time / 4) % 1.0
 
         if segment:
             intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
         else:
-            intensity = 0.4
+            intensity = 0.6
 
         #r,g,b = colorsys.hsv_to_rgb(noise, 0.5, intensity)
 

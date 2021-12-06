@@ -4,7 +4,7 @@ import math
 import time
 from typing import Protocol
 
-from noise import pnoise1, pnoise3
+from noise import pnoise1, snoise3
 
 from util import convert_K_to_RGB, get_hour, get_minute, get_second, region
 
@@ -62,7 +62,7 @@ def eclipse_clock(origin = 11/24, dimming = 0.6, static_color = convert_K_to_RGB
     return _eclipse_clock
 
 
-def color_noise(segment = False):
+def color_noise(segment = True):
     boot_time = time.time()
 
     def _color_noise(x: int, resolution: int, now: datetime) -> Color:
@@ -72,23 +72,22 @@ def color_noise(segment = False):
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
 
-        r = pnoise3(s, t, run_time / 4, octaves=4)
-        g = pnoise3(s + 10, t + 10, run_time / 4, octaves=4)
-        b = pnoise3(s + 50, t + 50, run_time / 4, octaves=4)
+        noise = ((snoise3(s, t, run_time / 3, octaves=4) + 1) / 2 + run_time / 10) % 1
 
         #ct = (run_time / 4) % 1.0
 
         if segment:
-            intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
+            #intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
+            intensity = abs(math.sin(run_time * 24 * math.pi))
         else:
             intensity = 0.6
 
-        #r,g,b = colorsys.hsv_to_rgb(noise, 0.5, intensity)
+        r,g,b = colorsys.hsv_to_rgb(noise, 0.5, intensity)
 
         return tuple([
-            r * intensity * 255,
-            g * intensity * 255,
-            b * intensity * 255,
+            r * 255,
+            g * 255,
+            b * 255,
         ])
 
     return _color_noise

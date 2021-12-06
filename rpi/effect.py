@@ -6,7 +6,7 @@ from typing import Protocol
 
 from noise import pnoise1, snoise3
 
-from util import convert_K_to_RGB, get_hour, get_minute, get_second, region
+from util import clamp, convert_K_to_RGB, get_hour, get_minute, get_second, region
 
 
 Color = tuple[float, float, float]
@@ -79,7 +79,7 @@ def color_noise(segment = True):
         if segment:
             #intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
             #intensity = abs(math.sin(run_time * 4 * math.pi)) * 0.5
-            intensity = (snoise3(s + 50, t, run_time / 12, octaves=12) + 1) / 2
+            intensity = clamp(snoise3(s + 50, t, run_time / 12, octaves=12), 0, 0.6)
         else:
             intensity = 0.4
 

@@ -84,7 +84,7 @@ def color_noise(segment = True):
         if segment:
             #intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
             #intensity = abs(math.sin(run_time * 4 * math.pi)) * 0.5
-            intensity = clamp(pnoise3(s, t, run_time / 12, octaves=2), 0, 0.9)
+            intensity = clamp(snoise3(s, t, run_time / 12, octaves=2), 0, 1)
         else:
             intensity = 0.4
 

@@ -70,7 +70,7 @@ def color_noise(segment = True):
 
     def _color_noise(x: int, resolution: int, now: datetime) -> Color:
         run_time = time.time() - boot_time
-        st = (x / resolution + 10 * pnoise1(run_time / 24, octaves=4) + 1.0) % 1.0
+        st = (x / resolution + 10 * pnoise1(run_time / 4, octaves=4) + 1.0) % 1.0
 
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)

@@ -76,7 +76,8 @@ def color_noise(segment = True):
         t = math.sin(st * 2 * math.pi)
 
         #hue = ((snoise3(s, t, run_time / 3, octaves=8) + 1) / 2 + run_time / 10) % 1
-        hue = (run_time / 6) % 1
+        #hue = (run_time / 6) % 1
+        hue = (pnoise1(run_time / 15, octaves=1) + 1.0) % 1.0
 
         #ct = (run_time / 4) % 1.0
 

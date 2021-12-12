@@ -70,21 +70,21 @@ def color_noise(segment = True):
 
     def _color_noise(x: int, resolution: int, now: datetime) -> Color:
         run_time = time.time() - boot_time
-        st = (x / resolution + 10 * pnoise1(run_time / 8, octaves=1) + 1.0) % 1.0
+        st = (x / resolution + 10 * pnoise1(run_time / 10, octaves=1) + 1.0) % 1.0
 
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
 
         #hue = ((snoise3(s, t, run_time / 3, octaves=8) + 1) / 2 + run_time / 10) % 1
         #hue = (run_time / 6) % 1
-        hue = (pnoise1(run_time / 15, octaves=1) + 1.0) % 1.0
+        hue = (pnoise1(run_time / 15, octaves=2) + 1.0) % 1.0
 
         #ct = (run_time / 4) % 1.0
 
         if segment:
             #intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
             #intensity = abs(math.sin(run_time * 4 * math.pi)) * 0.5
-            intensity = clamp(snoise3(s, t, run_time / 12, octaves=2), 0, 1)
+            intensity = clamp(snoise3(s, t, run_time / 12, octaves=1), 0, 1)
         else:
             intensity = 0.4
 

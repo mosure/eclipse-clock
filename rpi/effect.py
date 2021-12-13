@@ -4,7 +4,7 @@ import math
 import time
 from typing import Protocol
 
-from noise import pnoise1, pnoise3, snoise3
+from noise import pnoise1, pnoise3, snoise1, snoise3
 
 from util import clamp, convert_K_to_RGB, get_hour, get_minute, get_second, region
 
@@ -70,7 +70,7 @@ def color_noise(segment = True):
 
     def _color_noise(x: int, resolution: int, now: datetime) -> Color:
         run_time = time.time() - boot_time
-        st = (x / resolution + 10 * pnoise1(run_time / 24, octaves=1) + 4 * pnoise1(run_time / 10, octaves=2)) % 1.0
+        st = (x / resolution + 10 * pnoise1(run_time / 24, octaves=1) + 4 * pnoise1(run_time / 10, octaves=2) + 4 * snoise1(run_time / 16, octaves=2)) % 1.0
 
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)

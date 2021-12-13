@@ -65,12 +65,17 @@ def eclipse_clock(origin = 11/24, dimming = 0.6, static_color = convert_K_to_RGB
     return _eclipse_clock
 
 
-def color_noise(segment = True):
+def color_noise(segment = True, rotate = False):
     boot_time = time.time()
 
     def _color_noise(x: int, resolution: int, now: datetime) -> Color:
         run_time = time.time() - boot_time
-        st = (x / resolution + 10 * pnoise1(run_time / 24, octaves=1) + 4 * pnoise1(run_time / 10, octaves=2) + 4 * pnoise1(run_time / 16, octaves=3)) % 1.0
+
+        rotation_mod = 0
+        if rotate:
+            rotation_mod = 10 * pnoise1(run_time / 24, octaves=1) + 4 * pnoise1(run_time / 10, octaves=2) + 4 * pnoise1(run_time / 16, octaves=3)
+
+        st = (x / resolution + rotation_mod) % 1.0
 
         s = math.cos(st * 2 * math.pi)
         t = math.sin(st * 2 * math.pi)
@@ -85,7 +90,10 @@ def color_noise(segment = True):
         if segment:
             #intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
             #intensity = abs(math.sin(run_time * 4 * math.pi)) * 0.5
-            intensity = clamp(snoise3(s / 2, t / 2, run_time / 6, octaves=3), 0, 1)
+            if rotate:
+                intensity = clamp(snoise3(s / 2, t / 2, run_time / 6, octaves=3), 0, 1)
+            else:
+                intensity = clamp(snoise3(s, t, run_time, octaves=16), 0, 1)
         else:
             intensity = 0.4
 

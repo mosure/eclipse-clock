@@ -93,7 +93,7 @@ def color_noise(segment = True, rotate = False):
             if rotate:
                 intensity = clamp(snoise3(s / 2, t / 2, run_time / 6, octaves=3), 0, 1)
             else:
-                intensity = clamp(pnoise3(s, t, run_time / 4, octaves=16) * 1.4, 0, 1)
+                intensity = clamp(pnoise3(s, t, run_time / 4, octaves=2) * 1.4, 0, 1)
         else:
             intensity = 0.4
 

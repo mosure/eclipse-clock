@@ -74,7 +74,8 @@ def color_noise(segment = True, rotate = True):
 
         rotation_mod = 0
         if rotate:
-            rotation_mod = 10 * pnoise1(run_time / (5 * time_mul), octaves=1) + 4 * pnoise1(run_time / (2 * time_mul), octaves=2) + 4 * pnoise1(run_time / (3 * time_mul), octaves=3)
+            rot_mul = 3
+            rotation_mod = 10 * pnoise1(run_time / (5 * time_mul * rot_mul), octaves=1) + 4 * pnoise1(run_time / (2 * time_mul * rot_mul), octaves=2) + 4 * pnoise1(run_time / (3 * time_mul * rot_mul), octaves=3)
 
         st = (x / resolution + rotation_mod) % 1.0
 

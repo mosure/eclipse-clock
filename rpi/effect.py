@@ -65,7 +65,7 @@ def eclipse_clock(origin = 11/24, dimming = 0.6, static_color = convert_K_to_RGB
     return _eclipse_clock
 
 
-def color_noise(segment = True, rotate = True):
+def color_noise(segment = True, rotate = False):
     boot_time = time.time()
     time_mul = 1
 

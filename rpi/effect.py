@@ -67,13 +67,14 @@ def eclipse_clock(origin = 11/24, dimming = 0.6, static_color = convert_K_to_RGB
 
 def color_noise(segment = True, rotate = False):
     boot_time = time.time()
+    time_mul = 1
 
     def _color_noise(x: int, resolution: int, now: datetime) -> Color:
         run_time = time.time() - boot_time
 
         rotation_mod = 0
         if rotate:
-            rotation_mod = 10 * pnoise1(run_time / 24, octaves=1) + 4 * pnoise1(run_time / 10, octaves=2) + 4 * pnoise1(run_time / 16, octaves=3)
+            rotation_mod = 10 * pnoise1(run_time / (5 * time_mul), octaves=1) + 4 * pnoise1(run_time / (2 * time_mul), octaves=2) + 4 * pnoise1(run_time / (3 * time_mul), octaves=3)
 
         st = (x / resolution + rotation_mod) % 1.0
 
@@ -82,8 +83,8 @@ def color_noise(segment = True, rotate = False):
 
         #hue = ((snoise3(s, t, run_time / 3, octaves=8) + 1) / 2 + run_time / 10) % 1
         #hue = (run_time / 6) % 1
-        hue = (pnoise3(s / 3, t / 3, run_time / 15, octaves=1) + 1.0) % 1.0
-        sat = (pnoise1(run_time / 24, octaves=2) + 1.0) / 4.0 + 0.4
+        hue = (pnoise3(s / 3, t / 3, run_time / (3 * time_mul), octaves=1) + 1.0) % 1.0
+        sat = (pnoise1(run_time / (5 * time_mul), octaves=2) + 1.0) / 4.0 + 0.4
 
         #ct = (run_time / 4) % 1.0
 
@@ -91,9 +92,9 @@ def color_noise(segment = True, rotate = False):
             #intensity = math.sin(st * 14 * math.pi + run_time * 7 * math.pi)
             #intensity = abs(math.sin(run_time * 4 * math.pi)) * 0.5
             if rotate:
-                intensity = clamp(snoise3(s / 2, t / 2, run_time / 6, octaves=3), 0, 1)
+                intensity = clamp(snoise3(s / 2, t / 2, run_time / time_mul, octaves=3), 0, 1)
             else:
-                intensity = clamp(pnoise3(s, t, run_time / 4, octaves=2) * 1.4, 0, 1)
+                intensity = clamp(pnoise3(s, t, run_time / time_mul, octaves=2) * 1.4, 0, 1)
         else:
             intensity = 0.4
 

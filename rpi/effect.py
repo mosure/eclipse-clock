@@ -82,7 +82,7 @@ def color_noise(segment = True, rotate = False):
 
         #hue = ((snoise3(s, t, run_time / 3, octaves=8) + 1) / 2 + run_time / 10) % 1
         #hue = (run_time / 6) % 1
-        hue = (pnoise1(run_time / 15, octaves=2) + 1.0) % 1.0
+        hue = (pnoise3(s / 3, t / 3, run_time / 15, octaves=1) + 1.0) % 1.0
         sat = (pnoise1(run_time / 24, octaves=2) + 1.0) / 4.0 + 0.4
 
         #ct = (run_time / 4) % 1.0
